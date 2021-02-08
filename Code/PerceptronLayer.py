@@ -1,24 +1,37 @@
 import Code.perceptron as pr
 
+
 class PerceptronLayer(object):
-    def __init__(self, inputs:[pr], weights, bias, t):
-        self.inputs = inputs
+    """
+    Een class die de Layer van Perceptron aanmaakt
+    """
+    def __init__(self, weights: list, bias: float, threshold: float):
+        """Een init waar de weights, bias, threshold ,een lege lijst voor de antwoorden
+         en een lege lijst voor de Perceptron inputs"""
         self.weights = weights
         self.bias = bias
-        self.t = t
-        self.ant = []
+        self.threshold = threshold
+        self.antwoord = []
+        self.perceptron_inputs = []
+        # Aanmaken van een Perceptron dat dat vervolgens de class gebruikt kan worden
+        self.per = pr.Perceptron(self.weights, self.bias, self.threshold)
 
-    def verzamel_perdict(self):
-        for input in self.inputs:
-            # ant = pr.Perceptron(self.weights,input,self.bias, self.t).predict()
-            self.ant.append()
-        return self.ant
+    def set_input(self, inputs: list):
+        """
+        Een functie die de input van de layer set
+        :param inputs: een lijst met de inputs
+        """
+        self.perceptron_inputs = inputs
+
+    def predict(self):
+        """
+        Een functie die de predicts van de layer maakt
+        :return: een lijst met de activaties
+        """
+        for input in self.perceptron_inputs:
+            self.per.set_input(input)
+            self.antwoord.append(self.per.predict())
+        return self.antwoord
 
     def __str__(self) :
-        return f'Deze laag heeft als uitkomst:{self.verzamel_perdict()}'
-
-
-
-x = PerceptronLayer([[0,0], [0,1], [1,0], [1,1]], [0.5, 0.5], 0, 1)
-
-print(x)
+        return f'Deze laag heeft als uitkomst:{self.predict()}'

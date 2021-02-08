@@ -1,46 +1,48 @@
 class Perceptron(object):
-    def __init__(self, weights:list, inputs:list, bias:int, t: float):
+    """
+     Een class waar de Perceptron aangemaakt wordt
+    """
+    def __init__(self, weights: list, bias: float, threshold: float):
+        """
+        init Perceptron class met de weights, bias, threshold ,
+        een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
+        """
         self.weights = weights
-        self.inputs = inputs
         self.bias = bias
-        self.t = t
-        self.ant = 0
-    # def check_length(self):
-    #     if len(self.weights) != len(self.inputs):
-    #         raise DimensionError("Vectors hebben niet hetzelfde formaat")
-    #     else:
-    #         return True
-    #
-    # def matrix_product(self):
-    #     # if self.check_length() is True:
-    #     for i in self.inputs:
-    #         res = 0
-    #         for weight in range(len(self.weights)):
-    #             res += (i * self.weights[weight])
-    #         self.lijst.append(res+self.bias)
-    #     return self.lijst
-    # def matrix_product(self):
-    #     for i in self.inputs:
-    #         for j in self.weights:
-    #             ant = (i*j) + self.bias
-    #         self.lijst.append(ant)
-    #     self.lijst = sum(self.lijst)
-    #     return self.lijst
+        self.threshold = threshold
+        self.antwoord = 0
+        self.input = []
 
-    def product(self):
-        for index in range(len(self.weights)):
-            self.ant += self.inputs[index] * self.weights[index]
-        self.ant += self.bias
-        return self.ant
-
-    def activation(self, input):
-        return 1 if input >= self.t else 0
+    def set_input(self, perceptron_input: list):
+        """
+        Een fuctie waar de input vab de Perceptron geset kan worden.
+        :param perceptron_input: list van de inputs
+        :return: None
+        """
+        if len(perceptron_input) == len(self.weights):
+            self.input = perceptron_input
+        else:return None
 
     def predict(self):
-        pred = self.activation(self.product())
-        return pred
+        """
+        Een functie die Perceptron runt
+        :return: de predict voor de input(0 of 1)
+        """
+        for index in range(len(self.weights)):
+            self.antwoord += self.input[index] * self.weights[index]
+        self.antwoord += self.bias
+        self.antwoord = self.activation(self.antwoord)
+        return self.antwoord
+
+    def activation(self, predict):
+        """
+        Een functie die een activatie teruggeeft
+        :param predict: de som van(weight* input)+bias
+        :return: een activatie van 0 of 1
+        """
+        return 1 if predict >= self.threshold else 0
 
     def __str__(self) -> str:
-        return f'Perceptron: \n input = {self.inputs}, weights={self.weights},' \
-              f' bias={self.bias}\n en the predict is:{self.predict()}'
+        return f'Perceptron: \n input =, weights={self.weights},' \
+               f' bias={self.bias}\n en the predict is:{self.predict()}'
 
