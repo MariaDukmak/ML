@@ -10,18 +10,19 @@ class Perceptron(object):
         self.weights = weights
         self.bias = bias
         self.threshold = threshold
-        self.antwoord = 0
 
     def predict(self, input: [float]):
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
+        antwoord = 0
         for index in range(len(self.weights)):
-            self.antwoord += input[index] * self.weights[index]
-        self.antwoord += self.bias
-        self.antwoord = self.activation(self.antwoord)
-        return self.antwoord
+            antwoord += input[index] * self.weights[index]
+        antwoord += self.bias
+        antwoord = self.activation(antwoord)
+        self.antwoord = antwoord
+        return antwoord
 
     def activation(self, predict: float):
         """
