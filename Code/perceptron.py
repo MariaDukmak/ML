@@ -12,6 +12,10 @@ class Perceptron(object):
         self.threshold = threshold
         self.antwoord = 0
 
+        self.iter = 0
+        self.error_sum = 0
+        self.root_mean_error = 0
+
     def predict(self, input: [float]):
         """
         Een functie die perceptron runt
@@ -32,6 +36,29 @@ class Perceptron(object):
         :return: een activatie van 0 of 1
         """
         return 1 if predict >= self.threshold else 0
+
+    def update(self, input, verwachte_output, learning_rate=0.1):
+        # y = f(w ∙ x)
+        output = self.antwoord
+        # e = d – y
+        error = verwachte_output - output
+        for i in range(len(self.weights)):
+            # Δw = η ∙ e ∙ x
+            weight = learning_rate * error * input[i]
+            # Δwj = η (target(i) – output(i)) xj(i)
+            self.weights[i] = self.weights[i] + weight
+        # Δb = η ∙ e
+        bias = learning_rate * error
+        # b' = b + Δb
+        self.bias = self.bias + bias
+        # n
+        self.iter += 1
+        # Σ | d – y |
+        self.error_sum += abs(error)
+
+    def error(self):
+        # MSE = Σ | d – y |2 / n
+        self.root_mean_error = (self.error_sum**2)/ self.iter
 
     def __str__(self) -> str:
         """
