@@ -13,21 +13,16 @@ class PerceptronLayer(object):
          """
         self.perceptron = perceptron
 
-
     def predict_layer(self, input: [float]):
         """
         Een functie waar de activatie van de laag wordt berekend.
         :param input: de input van de laag
         :return: een lijst met de activatie tussen 0 en 1
         """
-        self.output = []
-        for i in self.perceptron:
-            # hier wordt de activatie per perceptron berekend
-            self.output.append(i.predict(input))
-        return self.output
+        return [i.predict(input) for i in self.perceptron]
 
     def __str__(self):
         """
         Een fucntie die de eigenschappen van de laag netjes uitprint
         """
-        return f'Layer met deze perceptron(s) {self.perceptron} heeft de output van {self.output}'
+        return f'Layer met deze perceptron(s) {self.perceptron}'

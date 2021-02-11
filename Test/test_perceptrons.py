@@ -1,79 +1,74 @@
-from unittest import TestCase
+import unittest
 from Code.perceptron import Perceptron
-from Code.perceptronNetwork import PerceptronNetwork
-from Code.perceptronLayer import PerceptronLayer
 
-class TestPerceptron(TestCase):
-    def testPAND(self):
+
+class TestPerceptron(unittest.TestCase):
+    """
+    Een class waar de werking van de perceptron wordt getest.
+    Door de werking van de AND, OR, NOT, NOR, PARTY te testen.
+    """
+    def testAND(self):
+        """
+        Hier wordt de werking van een AND gate getest
+        """
+        # Maak de perceptron aan
         p1 = Perceptron(weights=[0.5, 0.5], bias=0, threshold=1)
-        inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        outputs = [0, 0, 0, 1]
-
+        # Maak de inputs en de outputs aan
+        inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
+        # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             self.assertEqual(output, p1.predict(input))
 
-    def testPOR(self):
+    def testOR(self):
+        """
+        Hier wordt de werking van een OR gate getest
+        """
+        # Maak de perceptron aan
         p2 = Perceptron(weights=[0.5, 0.5], bias=0.5, threshold=1)
-        inputs = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        outputs = [0, 1, 1, 1]
-
+        # Maak de inputs en de outputs aan
+        inputs, outputs= [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 1, 1, 1]
+        # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             self.assertEqual(output, p2.predict(input))
 
-    def testPNOT(self):
+    def testNOT(self):
+        """
+        Hier wordt de werking van een NOT gate getest
+        """
+        # Maak de perceptron aan
         p3 = Perceptron(weights=[-1], bias=0, threshold=-0.5)
-
-        self.assertEqual(p3.predict([1]), 0)
-        self.assertEqual(p3.predict([0]), 1)
+        # Maak de inputs en de outputs aan
+        inputs, outputs = [[1], [0]], [0, 1]
+        # Vergelijk de output met de verwachte output
+        for input, output in zip(inputs, outputs):
+            self.assertEqual(output, p3.predict(input))
 
     def testNOR(self):
+        """
+        Hier wordt de werking van een NOR gate getest
+        """
+        # Maak de perceptron aan
         p4 = Perceptron(weights=[-1, -1, -1], bias=0, threshold=0)
+        # Maak de inputs en de outputs aan
         inputs = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
         outputs = [1, 0, 0, 0, 0, 0, 0, 0]
+        # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            print(input)
-            print(output)
             self.assertEqual(output, p4.predict(input))
 
     def testPARTY(self):
-        p5 = Perceptron(weights= [0.6, 0.3, 0.2],  bias=0, threshold= 0.4)
+        """
+        Hier wordt de werking van een PARTY gate getest
+        """
+        # Maak de perceptron aan
+        p5 = Perceptron(weights=[0.6, 0.3, 0.2],  bias=0, threshold= 0.4)
+        # Maak de inputs en de outputs aan
         inputs = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
-        outputs = [0, 0, 0, 1, 1, 1,1, 1]
+        outputs = [0, 0, 0, 1, 1, 1, 1, 1]
+        # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             self.assertEqual(output, p5.predict(input))
 
 
-class TestNewtwek(TestCase):
-
-    def testXOR(self):
-        p1 = Perceptron(weights=[1, 1], bias=0, threshold=0.5)
-        p2 = Perceptron(weights=[-1,-1], bias=0, threshold=-1.5)
-
-        layer1 = PerceptronLayer(perceptron=[p1, p2])
-
-        p3 = Perceptron(weights=[1,3], bias=0, threshold=1.5)
-        layer2 = PerceptronLayer(perceptron=[p3])
-
-        network = PerceptronNetwork(layers=[layer1, layer2])
-
-        input = [1, 1]
-        self.assertEqual([0], network.feed_forward(input))
-
-    def testHALFADDER(self):
-
-        p1 = Perceptron(weights=[1, 1], bias=0, threshold=1)
-        p2 = Perceptron(weights=[-1, -1], bias=0, threshold=-1.5)
-        p3 = Perceptron(weights=[1, 1], bias=0, threshold=2)
-        layer1 = PerceptronLayer(perceptron=[p1, p2, p3])
-
-        p4 = Perceptron(weights=[1, 1, 0], bias=0, threshold=2)
-        p5 = Perceptron(weights=[0, 0, 1], bias=0, threshold=1)
-
-        layer2 = PerceptronLayer(perceptron=[p5, p4])
-
-        netwerk = PerceptronNetwork(layers=[layer1, layer2])
-        inputs = [[0,1], [1,1], [1,0], [0,0]]
-        outputs = [[0,1], [1, 0], [0,1], [0,0]]
-
-        for input, output in zip(inputs, outputs):
-            self.assertEqual(output, netwerk.feed_forward(input))
+if __name__ == '__main__':
+    unittest.main()

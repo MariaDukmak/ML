@@ -10,23 +10,24 @@ class Perceptron(object):
         self.weights = weights
         self.bias = bias
         self.threshold = threshold
+        self.antwoord = 0
 
     def predict(self, input: [float]):
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
-        antwoord = 0
+        self.antwoord = 0
         for index in range(len(self.weights)):
-            antwoord += input[index] * self.weights[index]
-        antwoord += self.bias
-        antwoord = self.activation(antwoord)
-        self.antwoord = antwoord
-        return antwoord
+            self.antwoord += input[index] * self.weights[index]
+        self.antwoord += self.bias
+        self.antwoord = self.activation(self.antwoord)
+        return self.antwoord
 
     def activation(self, predict: float):
         """
         Een functie die een activatie teruggeeft
+
         :param predict: de som van(weight* input)+bias
         :return: een activatie van 0 of 1
         """
@@ -36,5 +37,5 @@ class Perceptron(object):
         """
         Een fucntie die de eigenschappen van de perceptron netjes uitprint
         """
-        return f'Perceptron: \n input =, weights={self.weights},' \
+        return f'Perceptron: \n weights={self.weights},' \
                f' bias={self.bias}\n en the predict is:{self.antwoord}'
