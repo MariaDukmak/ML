@@ -21,12 +21,13 @@ class Perceptron(object):
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
-        self.antwoord = 0
+        antwoord = 0
         for index in range(len(self.weights)):
-            self.antwoord += input[index] * self.weights[index]
-        self.antwoord += self.bias
-        self.antwoord = self.activation(self.antwoord)
-        return self.antwoord
+            antwoord += input[index] * self.weights[index]
+        antwoord += self.bias
+        antwoord = self.activation(self.antwoord)
+        self.antwoord = antwoord
+        return antwoord
 
     def activation(self, predict: float):
         """
@@ -58,11 +59,16 @@ class Perceptron(object):
 
     def error(self):
         # MSE = Σ | d – y |2 / n
-        self.root_mean_error = (self.error_sum**2)/ self.iter
+        self.root_mean_error = (self.error_sum**2)/self.iter
 
     def __str__(self) -> str:
         """
         Een fucntie die de eigenschappen van de perceptron netjes uitprint
         """
-        return f'Perceptron: \n weights={self.weights},' \
-               f' bias={self.bias}\n en the predict is:{self.antwoord}'
+        return f'Perceptron: weights={self.weights},' \
+               f' bias={self.bias}'
+
+
+# p1 = Perceptron(weights=[-0.5,0.5], bias=-1.5, threshold=0)
+# p1.update([1,1],1)
+# print(p1.weights)
