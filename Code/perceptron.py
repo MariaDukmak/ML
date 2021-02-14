@@ -10,22 +10,22 @@ class Perceptron(object):
         self.weights = weights
         self.bias = bias
         self.threshold = threshold
-        self.antwoord = 0
+        self.antwoord = None
 
         self.iter = 0
         self.error_sum = 0
         self.root_mean_error = 0
 
-    def predict(self, input: [float]):
+    def predict(self, input: [int]):
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
         antwoord = 0
         for index in range(len(self.weights)):
-            antwoord += input[index] * self.weights[index]
+           antwoord += input[index] * self.weights[index]
         antwoord += self.bias
-        antwoord = self.activation(self.antwoord)
+        antwoord = self.activation(antwoord)
         self.antwoord = antwoord
         return antwoord
 
@@ -38,8 +38,9 @@ class Perceptron(object):
         """
         return 1 if predict >= self.threshold else 0
 
-    def update(self, input, verwachte_output, learning_rate=0.1):
+    def update(self, input:[int], verwachte_output:[int], learning_rate=0.1):
         # y = f(w ∙ x)
+        self.predict(input)
         output = self.antwoord
         # e = d – y
         error = verwachte_output - output
@@ -66,9 +67,12 @@ class Perceptron(object):
         Een fucntie die de eigenschappen van de perceptron netjes uitprint
         """
         return f'Perceptron: weights={self.weights},' \
-               f' bias={self.bias}'
+               f' bias={self.bias}, output ={self.antwoord}'
 
 
-# p1 = Perceptron(weights=[-0.5,0.5], bias=-1.5, threshold=0)
+# p1 = Perceptron(weights=[0.5,0.5], bias=-1, threshold=0)
+# p1.predict([1,1])
 # p1.update([1,1],1)
 # print(p1.weights)
+
+
