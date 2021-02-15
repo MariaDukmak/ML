@@ -1,8 +1,11 @@
+from typing import List
+
+
 class Perceptron(object):
     """
      Een class waar de perceptron wordt aangemaakt.
     """
-    def __init__(self, weights:[float], bias: float, threshold: float):
+    def __init__(self, weights:List[float], bias: float, threshold: float):
         """
         init perceptron class met de weights, bias, threshold ,
         een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
@@ -12,7 +15,7 @@ class Perceptron(object):
         self.threshold = threshold
         self.antwoord = 0
 
-    def predict(self, input: [float]):
+    def predict(self, input: List[float]):
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)

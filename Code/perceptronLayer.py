@@ -1,3 +1,5 @@
+from typing import List
+
 import Code.perceptron as perceptron
 
 
@@ -5,7 +7,7 @@ class PerceptronLayer(object):
     """
     Een class waar de lagen van de netwerk aangemaakt kunnen worden.
     """
-    def __init__(self, perceptron=[[perceptron]]):
+    def __init__(self, perceptron:[[perceptron]]):
         """
         init waar de verwachte onderdelen van de laag gedefineerd worden.
         Een laag kan en of meerdere perceptrons bevaten. Er wordt ook een
@@ -13,7 +15,7 @@ class PerceptronLayer(object):
          """
         self.perceptron = perceptron
 
-    def predict_layer(self, input: [float]):
+    def predict_layer(self, input: List[float]):
         """
         Een functie waar de activatie van de laag wordt berekend.
         :param input: de input van de laag
