@@ -1,7 +1,7 @@
 import unittest
-from Code.perceptron import Perceptron
-from Code.perceptronNetwork import PerceptronNetwork
-from Code.perceptronLayer import PerceptronLayer
+from Percptron_code.perceptron import Perceptron
+from Percptron_code.perceptronNetwork import PerceptronNetwork
+from Percptron_code.perceptronLayer import PerceptronLayer
 
 
 class TestNewtwek(unittest.TestCase):

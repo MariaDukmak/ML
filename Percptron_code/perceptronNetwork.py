@@ -1,6 +1,6 @@
 from typing import List
 
-import Code.perceptronLayer as PerceptronLayer
+import Percptron_code.perceptronLayer as PerceptronLayer
 
 
 class PerceptronNetwork(object):
