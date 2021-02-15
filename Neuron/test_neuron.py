@@ -97,3 +97,6 @@ class TestNeuron(unittest.TestCase):
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             self.assertEqual(output, int(p4.predict(input)))
+
+if __name__ == '__main__':
+    unittest.main()

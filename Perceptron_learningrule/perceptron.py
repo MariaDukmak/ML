@@ -5,7 +5,7 @@ class Perceptron(object):
     """
      Een class waar de perceptron wordt aangemaakt.
     """
-    def __init__(self, weights:[float], bias: float, threshold: float):
+    def __init__(self, weights: List[float], bias: float, threshold: float):
         """
         init perceptron class met de weights, bias, threshold ,
         een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
@@ -13,13 +13,13 @@ class Perceptron(object):
         self.weights = weights
         self.bias = bias
         self.threshold = threshold
-        self.antwoord = None
+        self.antwoord = 0
 
         self.iter = 0
         self.error_sum = 0
         self.root_mean_error = 0
 
-    def predict(self, input: List[float]):
+    def predict(self, input: List[float]) -> float:
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
@@ -32,7 +32,7 @@ class Perceptron(object):
         self.antwoord = antwoord
         return antwoord
 
-    def activation(self, predict: float):
+    def activation(self, predict: float) -> int:
         """
         Een functie die een activatie teruggeeft
 
@@ -41,27 +41,33 @@ class Perceptron(object):
         """
         return 1 if predict >= self.threshold else 0
 
-    def update(self, input: List[int], verwachte_output: List[int], learning_rate=0.1):
+    def update(self, input: List[int], verwachte_output: [int], learning_rate: float = 0.1) -> None:
+        """
+        Een functie die de weight en de bias voor perceptron blijft updaten tot dat we op de goede uitput komen.
+        :param input: een list van ints met de input voor de perceptron.
+        :param verwachte_output: een int van de goede uitkomst voor de input.
+        :param learning_rate: een float tussen de 0.1 en 1.0 .
+        """
         # y = f(w ∙ x)
         self.predict(input)
         output = self.antwoord
         # e = d – y
         error = verwachte_output - output
-        for i in range(len(self.weights)):
+        for item in range(len(self.weights)):
             # Δw = η ∙ e ∙ x
-            weight = learning_rate * error * input[i]
+            delta_weight = learning_rate * error * input[item]
             # Δwj = η (target(i) – output(i)) xj(i)
-            self.weights[i] = self.weights[i] + weight
+            self.weights[item] = self.weights[item] + delta_weight
         # Δb = η ∙ e
-        bias = learning_rate * error
+        delta_bias = learning_rate * error
         # b' = b + Δb
-        self.bias = self.bias + bias
-        # n
-        self.iter += 1
+        self.bias = self.bias + delta_bias
         # Σ | d – y |
         self.error_sum += abs(error)
+        # n
+        self.iter += 1
 
-    def error(self):
+    def error(self) -> None:
         # MSE = Σ | d – y |2 / n
         self.root_mean_error = (self.error_sum**2)/self.iter
 
@@ -77,5 +83,3 @@ class Perceptron(object):
 # p1.predict([1,1])
 # p1.update([1,1],1)
 # print(p1.weights)
-
-

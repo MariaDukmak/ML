@@ -31,3 +31,5 @@ class TestNetwerk(unittest.TestCase):
             self.assertNotEqual(output, netwerk.feed_forward(input))
 
 
+if __name__ == '__main__':
+    unittest.main()

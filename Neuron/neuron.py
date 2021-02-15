@@ -2,7 +2,7 @@ from typing import List
 
 
 class Neuron:
-    def __init__(self, weights:List[float], bias: float):
+    def __init__(self, weights: List[float], bias: float):
         """
         init perceptron class met de weights, bias, threshold ,
         een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
@@ -31,7 +31,7 @@ class Neuron:
     def sigmoid(self, z):
         return 1 / (1 + 2.7182**(-z))
 
-    def update(self, input, verwachte_output, learning_rate=0.1):
+    def update(self, input: List[float], verwachte_output: float, learning_rate=0.1):
         # y = f(w ∙ x)
         output = self.antwoord
         # e = d – y
