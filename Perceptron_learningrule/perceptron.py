@@ -53,11 +53,11 @@ class Perceptron(object):
         output = self.antwoord
         # e = d – y
         error = verwachte_output - output
-        for item in range(len(self.weights)):
+        for index in range(len(self.weights)):
             # Δw = η ∙ e ∙ x
-            delta_weight = learning_rate * error * input[item]
+            delta_weight = learning_rate * error * input[index]
             # Δwj = η (target(i) – output(i)) xj(i)
-            self.weights[item] = self.weights[item] + delta_weight
+            self.weights[index] = self.weights[index] + delta_weight
         # Δb = η ∙ e
         delta_bias = learning_rate * error
         # b' = b + Δb

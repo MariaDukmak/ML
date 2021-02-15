@@ -8,7 +8,7 @@ class PerceptronNetwork(object):
     Een functie die het netwerk kan aanmaken. Dat bestaat uit een of meerdere perceptronLayer
     die verveolgens uit een of meerdere perceptrons bestaat.
     """
-    def __init__(self, layers:[[PerceptronLayer]]):
+    def __init__(self, layers: [[PerceptronLayer]]):
         """
         Init waar de layers input meegegeven wordt. Er wordt een lege
         lijst aangemaakt voor het opslaan van de netwerk output.
@@ -16,7 +16,7 @@ class PerceptronNetwork(object):
         self.layers = layers
         self.outputs = []
 
-    def feed_forward(self, input: List[float]):
+    def feed_forward(self, input: List[float]) -> float:
         """
         Een functie die de activatie van de netwerk berekend. Er wordt hier rekening gemaakt met het
         feit dat de input van de volgnde laag de output van de vorige laag moet zijn.
@@ -29,7 +29,7 @@ class PerceptronNetwork(object):
             self.outputs.append(i.predict_layer(self.outputs[-1]))
         return self.outputs[-1]
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Een fucntie die de eigenschappen van de netwerk netjes uitprint
         """

@@ -15,11 +15,20 @@ class Perceptron(object):
         self.threshold = threshold
         self.antwoord = 0
 
-    def predict(self, input: List[float]):
+    def check_input(self, input: List[float]) -> None:
+        """
+        Een functie die de lengte van de input checkt.
+        :param input: de input van de perceptron
+        :return: None
+        """
+        assert len(self.weights) == len(input), "ongeldige input lengte"
+
+    def predict(self, input: List[float]) -> int:
         """
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
+        self.check_input(input)
         self.antwoord = 0
         for index in range(len(self.weights)):
             self.antwoord += input[index] * self.weights[index]
@@ -27,7 +36,7 @@ class Perceptron(object):
         self.antwoord = self.activation(self.antwoord)
         return self.antwoord
 
-    def activation(self, predict: float):
+    def activation(self, predict: float) -> int:
         """
         Een functie die een activatie teruggeeft
 

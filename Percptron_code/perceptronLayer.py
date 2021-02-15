@@ -1,5 +1,4 @@
 from typing import List
-
 import Percptron_code.perceptron as perceptron
 
 
@@ -15,7 +14,7 @@ class PerceptronLayer(object):
          """
         self.perceptron = perceptron
 
-    def predict_layer(self, input: List[float]):
+    def predict_layer(self, input: List[float]) -> list:
         """
         Een functie waar de activatie van de laag wordt berekend.
         :param input: de input van de laag
@@ -23,7 +22,7 @@ class PerceptronLayer(object):
         """
         return [i.predict(input) for i in self.perceptron]
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Een fucntie die de eigenschappen van de laag netjes uitprint
         """
