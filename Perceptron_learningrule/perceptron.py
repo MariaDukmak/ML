@@ -24,6 +24,7 @@ class Perceptron(object):
         Een functie die perceptron runt
         :return: de predict voor de input(0 of 1)
         """
+        self.check_input(input)
         antwoord = 0
         for index in range(len(self.weights)):
            antwoord += input[index] * self.weights[index]
@@ -31,6 +32,14 @@ class Perceptron(object):
         antwoord = self.activation(antwoord)
         self.antwoord = antwoord
         return antwoord
+
+    def check_input(self, input: List[float]) -> None:
+        """
+        Een functie die de lengte van de input checkt.
+        :param input: de input van de perceptron
+        :return: None
+        """
+        assert len(self.weights) == len(input), "ongeldige input lengte"
 
     def activation(self, predict: float) -> int:
         """

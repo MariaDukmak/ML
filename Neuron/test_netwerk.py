@@ -3,7 +3,7 @@ from Neuron import neuron, neuron_layer, neuron_network
 
 
 class TestNetwerk(unittest.TestCase):
-    def testHALFADDER(self):
+    def test_HALFADDER(self):
         """
         Hier worden de perceptrons, de layers em de netwerk voor een half adder aangemaakt
         en vervolgens de output van de netwerk verglijken met de actuele output.
