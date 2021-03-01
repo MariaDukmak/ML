@@ -14,16 +14,15 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            # ik weet niet hoe het anders moet vergelijken? #TODO
             self.assertNotEqual(output, p1.predict(input))
 
-        p1 = neuron.Neuron(weights=[80, 80], bias=-100)
+        p1 = neuron.Neuron(weights=[80, 80], bias=-100)#alles keer 100
         # Maak de inputs en de outputs aan
         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             print(input, output,p1.predict(input))
-            # ik weet niet hoe het anders moet vergelijken? #TODO
+            # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p1.predict(input)))
 
     def test_NOT(self):
@@ -36,14 +35,13 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs = [[1], [0]], [0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            # ik weet niet hoe het anders moet vergelijken? #TODO
             self.assertNotEqual(output, p3.predict(input))
 
-        p3 = neuron.Neuron(weights=[-110], bias=100) #alles keer 100
+        p3 = neuron.Neuron(weights=[-1110], bias=1000) #alles keer 1000
         inputs, outputs = [[1], [0]], [0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            # ik weet niet hoe het anders moet vergelijken? #TODO
+            # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p3.predict(input)))
 
 
@@ -59,23 +57,19 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs= [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 1, 1, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            # ik weet niet hoe het anders moet vergelijken? #TODO
             self.assertNotEqual(output, p2.predict(input))
 
-        p2 = neuron.Neuron(weights=[200, 200], bias=-50)
+        p2 = neuron.Neuron(weights=[2000, 2000], bias=-500)#alles keer 1000
         # Maak de inputs en de outputs aan
         inputs, outputs= [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 1, 1, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            # ik weet niet hoe het anders moet vergelijken? #TODO
+            # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p2.predict(input)))
 
-   #TODO: leg beter uit!
-    """"Verklaar waarom dit (niet) werkt?
-        Omdat we de simgoid functie geen 0 of 1 krijgen kunnen de output wel afronden maar dat is 
-        nog steeds niet hoe het bij een neuron is
-
-    """
+    # Waarom werkt een neuron niet met dezelde installatie van een perceptron?
+    # Dat komt omdat de actievatie functie oftewel de sigmoid functie anders werkt. Die geeft een getal tussen de 0 en 1
+    # in tegen stelling tot de activatie functie die een een int van 1 of 0 terug geeft.
 
     def test_NOR(self):
         """
@@ -90,13 +84,14 @@ class TestNeuron(unittest.TestCase):
         for input, output in zip(inputs, outputs):
             self.assertNotEqual(output, p4.predict(input))
 
-        p4= neuron.Neuron(weights=[-200, -200, -200], bias=200)
+        p4= neuron.Neuron(weights=[-200, -200, -200], bias=200)#alles keer 100
         # Maak de inputs en de outputs aan
         inputs = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
         outputs = [1, 0, 0, 0, 0, 0, 0, 0]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
             self.assertEqual(output, int(p4.predict(input)))
+
 
 if __name__ == '__main__':
     unittest.main()

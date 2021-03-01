@@ -63,7 +63,7 @@ class Perceptron(object):
         # b' = b + Δb
         self.bias = self.bias + delta_bias
         # Σ | d – y |
-        self.error_sum += abs(error)
+        self.error_sum += error
         # n
         self.iter += 1
 
@@ -79,7 +79,3 @@ class Perceptron(object):
                f' bias={self.bias}, output ={self.antwoord}'
 
 
-# p1 = Perceptron(weights=[0.5,0.5], bias=-1, threshold=0)
-# p1.predict([1,1])
-# p1.update([1,1],1)
-# print(p1.weights)

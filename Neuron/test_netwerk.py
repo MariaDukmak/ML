@@ -3,22 +3,20 @@ from Neuron import neuron, neuron_layer, neuron_network
 
 
 class TestNetwerk(unittest.TestCase):
-
-    # TODO: fix dit
     def testHALFADDER(self):
         """
         Hier worden de perceptrons, de layers em de netwerk voor een half adder aangemaakt
         en vervolgens de output van de netwerk verglijken met de actuele output.
         """
         # Maak de onderdelen van het netwerk aan
-        p1 = neuron.Neuron(weights=[1, 1], bias=0)
-        p2 = neuron.Neuron(weights=[-1, -1], bias=0)
-        p3 = neuron.Neuron(weights=[1, 1], bias=0)
-        layer1 = neuron_layer.Neuron_layer(perceptron=[p1, p2, p3])
+        n1 = neuron.Neuron(weights=[24, 24], bias=-12)
+        n2 = neuron.Neuron(weights=[-12, -12], bias=18)
+        n3 = neuron.Neuron(weights=[12, 12], bias=-18)
+        layer1 = neuron_layer.Neuron_layer(perceptron=[n1, n2, n3])
 
-        p4 = neuron.Neuron(weights=[1, 1, 0], bias=0)
-        p5 = neuron.Neuron(weights=[0, 0, 1], bias=0)
-        layer2 = neuron_layer.Neuron_layer(perceptron=[p5, p4])
+        n4 = neuron.Neuron(weights=[12, 12, 0], bias=-18)
+        n5 = neuron.Neuron(weights=[0, 0, 24], bias=-12)
+        layer2 = neuron_layer.Neuron_layer(perceptron=[n5, n4])
 
         netwerk = neuron_network.Neuron_network(layers=[layer1, layer2])
 
@@ -28,7 +26,8 @@ class TestNetwerk(unittest.TestCase):
 
         # Vergelijk de output van de netwerk met de verwachte output
         for input, output in zip(inputs, outputs):
-            self.assertNotEqual(output, netwerk.feed_forward(input))
+            antw_list = netwerk.feed_forward(input)
+            self.assertEqual(output, [round(antw_list[0]), round(antw_list[1])])
 
 
 if __name__ == '__main__':
