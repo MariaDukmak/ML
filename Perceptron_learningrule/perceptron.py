@@ -87,4 +87,3 @@ class Perceptron(object):
         return f'Perceptron: weights={self.weights},' \
                f' bias={self.bias}, output ={self.antwoord}'
 
-
