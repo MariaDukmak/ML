@@ -8,16 +8,15 @@ class Perceptron(object):
     def __init__(self, weights: List[float], bias: float, threshold: float):
         """
         init perceptron class met de weights, bias, threshold ,
-        een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
+        een lege lijst voor de input en een variabele voor het opslaan van het antwoord
         """
         self.weights = weights
         self.bias = bias
         self.threshold = threshold
         self.antwoord = 0
 
-        self.iter = 0
         self.error_sum = 0
-        self.root_mean_error = 0
+        self.MSE = 0
 
     def predict(self, input: List[float]) -> float:
         """
@@ -50,7 +49,7 @@ class Perceptron(object):
         """
         return 1 if predict >= self.threshold else 0
 
-    def update(self, input: List[int], verwachte_output: [int], learning_rate: float = 0.1) -> None:
+    def update(self, input: List[int], verwachte_output: int, learning_rate: float = 0.1) -> None:
         """
         Een functie die de weight en de bias voor perceptron blijft updaten tot dat we op de goede uitput komen.
         :param input: een list van ints met de input voor de perceptron.
@@ -71,14 +70,14 @@ class Perceptron(object):
         delta_bias = learning_rate * error
         # b' = b + Δb
         self.bias = self.bias + delta_bias
-        # Σ | d – y |
-        self.error_sum += error
-        # n
-        self.iter += 1
+        # Σ | d – y |2
+        self.error_sum += error**2
 
-    def error(self) -> None:
+    def error(self) -> float:
         # MSE = Σ | d – y |2 / n
-        self.root_mean_error = (self.error_sum**2)/self.iter
+        self.MSE = self.error_sum/2**len(self.weights)
+        MSE = self.MSE
+        return MSE
 
     def __str__(self) -> str:
         """
