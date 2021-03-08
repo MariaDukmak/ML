@@ -14,6 +14,7 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
+            print(p1.predict(input))
             self.assertNotEqual(output, p1.predict(input))
 
         p1 = neuron.Neuron(weights=[80, 80], bias=-100)#alles keer 100
@@ -21,7 +22,7 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
-            print(input, output,p1.predict(input))
+
             # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p1.predict(input)))
 
@@ -35,12 +36,14 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs = [[1], [0]], [0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
+            print(p3.predict(input))
             self.assertNotEqual(output, p3.predict(input))
 
         p3 = neuron.Neuron(weights=[-1110], bias=1000) #alles keer 1000
         inputs, outputs = [[1], [0]], [0, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
+            print(p3.predict(input))
             # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p3.predict(input)))
 
@@ -64,6 +67,7 @@ class TestNeuron(unittest.TestCase):
         inputs, outputs= [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 1, 1, 1]
         # Vergelijk de output met de verwachte output
         for input, output in zip(inputs, outputs):
+
             # ik weet niet hoe het anders moet vergelijken?
             self.assertEqual(output, int(p2.predict(input)))
 
@@ -95,3 +99,4 @@ class TestNeuron(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
