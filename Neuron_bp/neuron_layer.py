@@ -24,34 +24,23 @@ class Neuron_layer:
         """
         return [i.predict(input) for i in self.neurons]
 
-    def calculate_error(self, verwachte_output:list, weight_volgende_layer: List[int] = [], error_volgende_layer:List[int] = []):
-        if len(weight_volgende_layer) == 0 and len(error_volgende_layer) == 0:
-            for index in range(len(self.neurons)):
-                self.neurons[index].calculate_error(verwachte_output[index], [], [])
-                self.errors.append(self.neurons[index].error)
-        else:
-            for index in range(len(self.neurons)):
-                weights = [weight[index] for weight in weight_volgende_layer]
-                self.neurons[index].calculate_error(verwachte_output, weights,error_volgende_layer)
-                self.errors.append(self.neurons[index].error)
+    def error(self, target):
+        for index, output_neuron in enumerate(self.neurons):
+            output_neuron.cal_error_output(output_neuron.antwoord, target[index])
 
-    def calculate_error_layer(self, v_ouput, next_lw =[], next_le=[]):
-        neuronsRange = range(len(self.neurons))
-        for index in neuronsRange:
-            self.neurons[index].calculate_error(verwachte_output=v_ouput[index], weight_volgende_n=[], error_volgende_n=[])
+    def error_hidden(self, next_weight_layer, next_error_layer):
 
-    def change_weight_layer(self, learningrate=0.1):
+        for index, neuron in enumerate(self.neurons):
+            next_weight, next_error = [], []
+            for weight in next_weight_layer:
+                next_weight.append(weight[index])
+            self.neurons[index].cal_error_hidden(neuron.antwoord, next_weight, next_error_layer)
+            next_error.append(self.neurons[index].error)
+            self.errors = next_error
+
+    def update(self, leariningrate=0.1):
         for neuron in self.neurons:
-            neuron.change_weights(learningrate)
-
-    def update_layer(self):
-        for neuron in self.neurons:
-            neuron.update()
-
-        self.errors = []
-        self.weights = [i.weights for i in self.neurons]
-
-
+            neuron.update(leariningrate)
 
     def __str__(self):
         """

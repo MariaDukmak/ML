@@ -30,40 +30,36 @@ class Neuron_network:
         self.outputs = self.outputs[-1]
         return self.outputs
 
-    def train(self, inputs, target, epochs, learning_rate=0.1):
-        for epoch in range(epochs):
-            layersRange, inputsRange = range(len(self.layers)), range(len(inputs))
-            # for x, index in zip(inputsRange, layersRange):
-            for input in inputsRange:
-                for index in layersRange:
-                    self.feed_forward(inputs[input])
-                    index = index * -1
-                    if index != 0: #dus wel een hidden layer
-                        self.layers[index-1].calculate_error(target[input], self.layers[index].weights,
-                                                             self.layers[index].errors)
-                    # geen hidden layer
-                    else: self.layers[index-1].calculate_error(target[input], [], [])
-            self.update_netwerk(inputs, target)
-        self.calculate_total_loss()
-
-    def update_netwerk(self, inputs, target):
-        for x in range(len(inputs)):
-            for index in range(len(self.layers)):
-                index = index * -1
-                self.layers[index-1].change_weight_layer()
-                self.layers[index-1].update_layer()
-            self.calculate_loss(target[x])
-
-    def calculate_loss(self, target, loss_sum= 0):
+    def calculate_loss(self, target, loss_sum=0):
         for index in range(len(target)):
             loss_sum += (target[index] - self.outputs[index])**2
         self.loss.append(loss_sum/len(target))
 
     def calculate_total_loss(self):
-        MSE = sum(self.loss) / len(self.loss)
-        self.MSE = MSE
+        total_loss = sum(self.loss) / len(self.loss)
+        # self.MSE = total_loss
         self.loss = []
-        return MSE
+        return total_loss
+
+    def train(self, inputs, targets, epoches=10000):
+        for epoch in range(epoches):
+            for index, input_list in enumerate(inputs):
+                self.feed_forward(input_list)
+                target = targets[index]
+
+                for i in range(len(self.layers)):
+                    i = i*-1
+                    if i == 0: self.layers[i-1].error(target)
+                    else:
+                        next_weights = [neuron.weights for neuron in self.layers[i].neurons]
+                        next_errors = [neuron.error for neuron in self.layers[i].neurons]
+                        self.layers[i-1].error_hidden(next_weights, next_errors)
+
+                for i in range(len(self.layers)):
+                    i = i*-1
+                    self.layers[i-1].update()
+                self.calculate_loss(target)
+        print("loss",self.calculate_total_loss())
 
     def __str__(self):
         """
@@ -71,13 +67,13 @@ class Neuron_network:
         """
         return f'Deze netwerk bestaat uit deze lagen {self.layers} en heeft een output van {self.outputs}'
 
-n1 = Neuron(weights=[24, 24], bias=-12)
-n2 = Neuron(weights=[-12, -12], bias=18)
-n3 = Neuron(weights=[12, 12], bias=-18)
+n1 = Neuron(weights=[0.0, 0.1], bias=0)
+n2 = Neuron(weights=[0.2, 0.3], bias=0)
+n3 = Neuron(weights=[0.4, 0.5], bias=0)
 layer1 = Neuron_layer([n1, n2, n3])
 
-n4 = Neuron(weights=[12, 12, 0], bias=-18)
-n5 = Neuron(weights=[12, 12, 0], bias=-18)
+n4 = Neuron(weights=[0.6, 0.7, 0.8], bias=0)
+n5 = Neuron(weights=[0.9, 1.0, 1.1], bias=0)
 layer2 = Neuron_layer([n4, n5])
 
 netwerk = Neuron_network(layers=[layer1, layer2])
@@ -86,5 +82,38 @@ inputs = [[0, 1], [1, 1], [1, 0], [0, 0]]
 outputs = [[0, 1], [1, 0], [0, 1], [0, 0]]
 for input, output in zip(inputs, outputs):
     antw_list = netwerk.feed_forward(input)
-    # print(antw_list)
-netwerk.train(inputs, outputs, 10)
+    print(antw_list)
+netwerk.train(inputs, outputs)
+#rint(netwerk)
+
+print("na train")
+
+for input, output in zip(inputs, outputs):
+    antw_list = netwerk.feed_forward(input)
+    print(antw_list, output)
+
+
+# n1 = Neuron(weights=[0.2, -0.4], bias=0)
+# n2 = Neuron(weights=[0.7, 0.1], bias=0)
+#
+# layer1 = Neuron_layer([n1, n2])
+#
+# n4 = Neuron(weights=[0.6, 0.9], bias=0.0)
+# # n5 = Neuron(weights=[0.9, 1.0, 1.1], bias=0)
+# layer2 = Neuron_layer([n4])
+#
+# netwerk = Neuron_network(layers=[layer1, layer2])
+#
+# inputs = [[1, 1], [1, 0], [0, 1], [0, 0]]
+# outputs = [[0], [1], [1], [0]]
+# for input, output in zip(inputs, outputs):
+#     antw_list = netwerk.feed_forward(input)
+#     print(antw_list)
+# netwerk.train(inputs, outputs)
+# #rint(netwerk)
+#
+# print("na train")
+#
+# for input, output in zip(inputs, outputs):
+#     antw_list = netwerk.feed_forward(input)
+#     print(antw_list, output)
