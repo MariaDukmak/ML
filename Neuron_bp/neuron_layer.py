@@ -14,9 +14,8 @@ class Neuron_layer:
          """
         self.neurons = neurons
         self.errors = []
-        self.weights = [i.weights for i in self.neurons]
 
-    def predict_layer(self, input: [float]):
+    def predict_layer(self, input: List[float]) -> list:
         """
         Een functie waar de activatie van de laag wordt berekend.
         :param input: de input van de laag
@@ -24,21 +23,20 @@ class Neuron_layer:
         """
         return [i.predict(input) for i in self.neurons]
 
-    def error(self, target):
+    def error(self, target: List[int or float]) -> None:
         for index, output_neuron in enumerate(self.neurons):
             output_neuron.cal_error_output(output_neuron.antwoord, target[index])
 
-    def error_hidden(self, next_weight_layer, next_error_layer):
-
+    def error_hidden(self, next_layerW:List[List[float]], next_layerE:List[float]) -> None:
         for index, neuron in enumerate(self.neurons):
             next_weight, next_error = [], []
-            for weight in next_weight_layer:
+            for weight in next_layerW:
                 next_weight.append(weight[index])
-            self.neurons[index].cal_error_hidden(neuron.antwoord, next_weight, next_error_layer)
+            self.neurons[index].cal_error_hidden(neuron.antwoord, next_weight, next_layerE)
             next_error.append(self.neurons[index].error)
             self.errors = next_error
 
-    def update(self, leariningrate=0.1):
+    def update(self, leariningrate: float = 0.1) -> None:
         for neuron in self.neurons:
             neuron.update(leariningrate)
 
