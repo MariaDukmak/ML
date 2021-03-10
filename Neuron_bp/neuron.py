@@ -1,6 +1,7 @@
 from typing import List
 
-#TODO:mimimaliseer de code. Dis veels te veel code meis :(
+# TODO:mimimaliseer de code. Dis veels te veel code meis :(
+
 
 class Neuron:
     def __init__(self, weights: List[float], bias: float):
@@ -55,7 +56,7 @@ class Neuron:
         self.error = error
         return self.error
 
-    def cal_error_hidden(self, output: float, next_weight: List[float], next_error: List[float]) -> float:#
+    def cal_error_hidden(self, output: float, next_weight: List[float], next_error: List[float]) -> float:
         # Δi = σ'(input) ∙ Σj wi,j ∙ Δj
         sum_error = 0
         for index in range(len(next_weight)):
@@ -74,5 +75,5 @@ class Neuron:
         """
         Een fucntie die de eigenschappen van de perceptron netjes uitprint
         """
-        return f'Perceptron: weights={self.weights},' \
+        return f'Neuron: weights={self.weights},' \
                f' bias={self.bias}'

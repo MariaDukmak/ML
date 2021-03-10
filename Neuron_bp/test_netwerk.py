@@ -3,7 +3,9 @@ from Neuron_bp.neuron import Neuron
 from Neuron_bp.neuron_layer import Neuron_layer
 from Neuron_bp.neuron_network import Neuron_network
 
-#TODO
+# TODO
+
+
 class TestNetwerk(unittest.TestCase):
     def test_XOR(self):
         """

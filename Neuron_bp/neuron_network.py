@@ -1,5 +1,4 @@
 from Neuron_bp.neuron_layer import Neuron_layer
-from Neuron_bp.neuron import Neuron
 import time, random
 from typing import List
 
@@ -65,7 +64,7 @@ class Neuron_network:
             epoch += 1
             print("loss", self.calculate_total_loss())
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Een fucntie die de eigenschappen van de netwerk netjes uitprint
         """

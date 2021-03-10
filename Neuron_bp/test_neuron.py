@@ -2,6 +2,8 @@ import unittest
 from Neuron_bp.neuron import Neuron
 
 # TODO
+
+
 class TestNeuron(unittest.TestCase):
 
     def test_AND(self):
@@ -29,6 +31,7 @@ class TestNeuron(unittest.TestCase):
             print(p1.antwoord, output)
             # self.assertEqual(round(p1.antwoord), output)
             # self.assertAlmostEqual(p1.antwoord, output, delta = 0.1)
+
 
 if __name__ == '__main__':
     unittest.main()

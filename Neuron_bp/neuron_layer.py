@@ -40,7 +40,7 @@ class Neuron_layer:
         for neuron in self.neurons:
             neuron.update(leariningrate)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Een fucntie die de eigenschappen van de laag netjes uitprint
         """
