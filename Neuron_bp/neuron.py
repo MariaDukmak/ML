@@ -1,4 +1,3 @@
-import unittest
 from typing import List
 
 #TODO:mimimaliseer de code. Dis veels te veel code meis :(
@@ -77,32 +76,3 @@ class Neuron:
         """
         return f'Perceptron: weights={self.weights},' \
                f' bias={self.bias}'
-
-#
-# class TestNeuron(unittest.TestCase):
-#
-#     def test_AND(self):
-#         """
-#         Hier wordt de werking van een AND gate getest
-#         """
-#         # Maak de neuron aan
-#         p1 = Neuron(weights=[-0.5, 0.5], bias=-1.5)
-#         # Maak de inputs en de outputs aan
-#         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
-#         # Vergelijk de output met de verwachte output
-#         # for input, output in zip(inputs, outputs):
-#         #     self.assertNotEqual(output, p1.predict(input))
-#
-#         for _ in range(1000):
-#             for input, output in zip(inputs, outputs):
-#                 n = p1.predict(input)
-#                 p1.cal_error_output(n, output)
-#                 p1.update(n)
-#         print(p1)
-#
-#         # DIT WERKT!
-#         for input, output in zip(inputs, outputs):
-#             p1.predict(input)
-#             print(p1.antwoord, output)
-#             # self.assertEqual(round(p1.antwoord), output)
-#             # self.assertAlmostEqual(p1.antwoord, output, delta = 0.1)
