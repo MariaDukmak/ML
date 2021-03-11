@@ -3,15 +3,7 @@ from Neuron_bp.neuron_bp import Neuron
 
 
 class Neuron_layer:
-    """
-    Een class waar de lagen van de netwerk aangemaakt kunnen worden.
-    """
     def __init__(self, neurons: [[Neuron]]):
-        """
-        init waar de verwachte onderdelen van de laag gedefineerd worden.
-        Een laag kan en of meerdere perceptrons bevaten. Er wordt ook een
-        leege lijst aangeemkt waar de output van de laag wordt opgeslagen.
-         """
         self.neurons = neurons
         self.errors = []
 
@@ -23,11 +15,22 @@ class Neuron_layer:
         """
         return [i.predict(input) for i in self.neurons]
 
-    def error(self, target: List[int or float]) -> None:
+    def error_output(self, target: List[int or float]) -> None:
+        """
+        Een functie die de eror van de output laag berekent
+        :param target: een lijst met verwachte outputs van de laag
+        :return: None
+        """
         for index, output_neuron in enumerate(self.neurons):
             output_neuron.cal_error_output(output_neuron.antwoord, target[index])
 
     def error_hidden(self, next_layerW:List[List[float]], next_layerE:List[float]) -> None:
+        """
+        Een functie die de error vann een hidden layer berekent
+        :param next_layerW: een lijst met de weights van de volgende laag
+        :param next_layerE: een lijst met de errors van de volgende laag
+        :return:None
+        """
         for index, neuron in enumerate(self.neurons):
             next_weight, next_error = [], []
             for weight in next_layerW:
@@ -37,11 +40,13 @@ class Neuron_layer:
             self.errors = next_error
 
     def update(self, leariningrate: float = 0.1) -> None:
+        """
+        Een functie die de weights en bias van de laag update
+        :param leariningrate: een float
+        :return: None
+        """
         for neuron in self.neurons:
             neuron.update(leariningrate)
 
     def __str__(self) -> str:
-        """
-        Een fucntie die de eigenschappen van de laag netjes uitprint
-        """
-        return f'Layer met deze perceptron(s) {self.neurons}'
+        return f'Layer met deze neuron(s) {self.neurons}en deze errors {self.errors}'

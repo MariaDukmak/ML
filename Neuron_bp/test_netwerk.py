@@ -1,17 +1,11 @@
-import unittest
+import unittest, numpy
 from Neuron_bp.neuron_bp import Neuron
 from Neuron_bp.neuron_layer_bp import Neuron_layer
 from Neuron_bp.neuron_network_bp import Neuron_network
 
-# TODO
-
 
 class TestNetwerk(unittest.TestCase):
     def test_XOR(self):
-        """
-        Hier worden de perceptrons, de layers em de netwerk voor een half adder aangemaakt
-        en vervolgens de output van de netwerk verglijken met de actuele output.
-        """
         #Maak de onderdelen van het netwerk aan
         n1 = Neuron(weights=[0.2, -0.4], bias=0)
         n2 = Neuron(weights=[0.7, 0.1], bias=0)
@@ -35,9 +29,11 @@ class TestNetwerk(unittest.TestCase):
         for input, output in zip(inputs, outputs):
             antw_list = netwerk.feed_forward(input)
             print(antw_list, output)
-            # self.assertEqual(output, [round(antw_list[0]), round(antw_list[1])])
+            numpy.testing.assert_array_almost_equal(antw_list, output, 1)
 
     def test_HALFADDER(self):
+
+        #Maak de onderdelen van het netwerk aan
 
         n1 = Neuron(weights=[0.0, 0.1], bias=0)
         n2 = Neuron(weights=[0.2, 0.3], bias=0)
@@ -58,12 +54,12 @@ class TestNetwerk(unittest.TestCase):
         netwerk.train(inputs, outputs)
 
 
-        print("na train")
+        print("na trainen")
 
         for input, output in zip(inputs, outputs):
             antw_list = netwerk.feed_forward(input)
             print(antw_list, output)
-            # self.assertAlmostEquals()
+            numpy.testing.assert_array_almost_equal(antw_list, output, 1)
 
 
 if __name__ == '__main__':

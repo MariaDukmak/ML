@@ -1,14 +1,8 @@
 from typing import List
 
-# TODO:mimimaliseer de code. Dis veels te veel code meis :(
-
 
 class Neuron:
-    def __init__(self, weights: List[float], bias: float):
-        """
-        init perceptron class met de weights, bias, threshold ,
-        een lege lijst voor de input en een vriabele voor het opslaan van het antwoord
-        """
+    def __init__(self, weights: List[float], bias: float) -> None:
         self.weights = weights
         self.bias = bias
         self.antwoord = 0
@@ -25,8 +19,9 @@ class Neuron:
 
     def predict(self, input: List[float]) -> float:
         """
-        Een functie die perceptron runt
-        :return: de predict voor de input(0 of 1)
+        Een functie die neuron runt
+        :return: de predict voor de gegeven input,
+        oftwel de uitkomst van de sigmooid functie
         """
         self.check_input(input)
         self.input = input
@@ -47,16 +42,29 @@ class Neuron:
         return 1 / (1 + e**(-predict))
 
     def cal_derivative(self, output: float) -> float:
+        """
+        Een functie die een stukje van de vergelijking
+        oplost voor zowel de output als de hidden neuron
+        :return een float
+        """
         # outputj ∙ (1 – outputj)
         return output * (1 - output)
 
     def cal_error_output(self, output: float,  expected_output: int) -> float:
+        """
+        Een functie die de error van een output neuron berekent
+        :return de error van de neuron
+        """
         # Δj = σ'(inputj) ∙ – (targetj – outputj)
         error = self.cal_derivative(output) * -(expected_output - output)
         self.error = error
         return self.error
 
     def cal_error_hidden(self, output: float, next_weight: List[float], next_error: List[float]) -> float:
+        """
+        Een functie die de error voor een hidden neuron berekent.
+        :return de error van de neuron
+        """
         # Δi = σ'(input) ∙ Σj wi,j ∙ Δj
         sum_error = 0
         for index in range(len(next_weight)):
@@ -65,6 +73,11 @@ class Neuron:
         return self.error
 
     def update(self, learning_rate: float = 0.1) -> None:
+        """
+        Een functie die de weights en bias update door het
+        te aftereken van de delta.
+        :return None
+        """
         for i in range(len(self.weights)):
             # w'i,j = wi,j – Δwi,j
             self.weights[i] -= (learning_rate * self.error * self.input[i])
@@ -72,8 +85,5 @@ class Neuron:
         self.bias -= (learning_rate * self.error)
 
     def __str__(self) -> str:
-        """
-        Een fucntie die de eigenschappen van de perceptron netjes uitprint
-        """
         return f'Neuron: weights={self.weights},' \
-               f' bias={self.bias}'
+               f' bias={self.bias} en de error {self.error}'
