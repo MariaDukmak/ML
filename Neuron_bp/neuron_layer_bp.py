@@ -1,5 +1,5 @@
 from typing import List
-from Neuron.neuron import Neuron
+from Neuron_bp.neuron_bp import Neuron
 
 
 class Neuron_layer:

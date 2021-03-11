@@ -1,5 +1,5 @@
 import unittest
-from Neuron_bp.neuron import Neuron
+from Neuron_bp.neuron_bp import Neuron
 
 # TODO
 
@@ -15,10 +15,10 @@ class TestNeuron(unittest.TestCase):
         # Maak de inputs en de outputs aan
         inputs, outputs = [[0, 0], [0, 1], [1, 0], [1, 1]], [0, 0, 0, 1]
         # Vergelijk de output met de verwachte output
-        # for input, output in zip(inputs, outputs):
-        #     self.assertNotEqual(output, p1.predict(input))
+        for input, output in zip(inputs, outputs):
+            self.assertNotEqual(output, p1.predict(input))
 
-        for _ in range(1000):
+        for _ in range(10000):
             for input, output in zip(inputs, outputs):
                 n = p1.predict(input)
                 p1.cal_error_output(n, output)
@@ -29,8 +29,7 @@ class TestNeuron(unittest.TestCase):
         for input, output in zip(inputs, outputs):
             p1.predict(input)
             print(p1.antwoord, output)
-            # self.assertEqual(round(p1.antwoord), output)
-            # self.assertAlmostEqual(p1.antwoord, output, delta = 0.1)
+            self.assertAlmostEqual(p1.antwoord, output, delta = 0.1)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-from Neuron_bp.neuron_layer import Neuron_layer
+from Neuron_bp.neuron_layer_bp import Neuron_layer
 import time, random
 from typing import List
 
@@ -41,7 +41,9 @@ class Neuron_network:
         self.loss = []
         return total_loss
 
-    def train(self, inputs:List[List[float]], targets:List[List[float]], epoches:int=10000, max_time:int=200) -> None:
+    def train(self, inputs:List[List[float]], targets:List[List[float]], learning_rate:float = 0.1,
+              epoches:int=10000, max_time:int=200) -> None:
+
         start_time, epoch = time.time(), 0
 
         while epoches > epoch and time.time()-start_time < max_time:
@@ -59,10 +61,11 @@ class Neuron_network:
                         self.layers[i-1].error_hidden(next_weights, next_errors)
 
                 for i in range(len(self.layers[::-1])):
-                    self.layers[i-1].update()
+                    self.layers[i-1].update(learning_rate)
                 self.calculate_loss(target)
             epoch += 1
-            print("loss", self.calculate_total_loss())
+        print("loss", self.calculate_total_loss())
+        print("epoches", epoch)
 
     def __str__(self) -> str:
         """
