@@ -25,7 +25,6 @@ class TestNeuron(unittest.TestCase):
                 p1.update(n)
         print(p1)
 
-        # DIT WERKT!
         for input, output in zip(inputs, outputs):
             p1.predict(input)
             print(p1.antwoord, output)

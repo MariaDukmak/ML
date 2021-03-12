@@ -60,15 +60,15 @@ class Neuron:
         self.error = error
         return self.error
 
-    def cal_error_hidden(self, output: float, next_weight: List[float], next_error: List[float]) -> float:
+    def cal_error_hidden(self, output: float, next_weights: List[float], next_errors: List[float]) -> float:
         """
         Een functie die de error voor een hidden neuron berekent.
         :return de error van de neuron
         """
         # Δi = σ'(input) ∙ Σj wi,j ∙ Δj
         sum_error = 0
-        for index in range(len(next_weight)):
-            sum_error += next_weight[index] * next_error[index]
+        for index in range(len(next_weights)):
+            sum_error += next_weights[index] * next_errors[index]
         self.error = self.cal_derivative(output) * sum_error
         return self.error
 

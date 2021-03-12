@@ -60,9 +60,6 @@ class Neuron_network:
         """
         start_time, epoch = time.time(), 0
         while epoches > epoch and time.time()-start_time < max_time:
-            ## ADD RANDOM SHIFFEL INPUT!!!!!
-            # for epoch in range(epoches):
-            # inputs = random.shuffle(list(range(inputs)))
             for index, input_list in enumerate(inputs):
                 self.feed_forward(input_list)
                 target = targets[index]
@@ -79,7 +76,6 @@ class Neuron_network:
             epoch += 1
         print("total loss", self.MSE(inputs, targets))
         print("epoches", epoch)
-
 
     def __str__(self) -> str:
 

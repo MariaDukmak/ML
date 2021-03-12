@@ -53,7 +53,6 @@ class TestNetwerk(unittest.TestCase):
             print(antw_list)
         netwerk.train(inputs, outputs)
 
-
         print("na trainen")
 
         for input, output in zip(inputs, outputs):
