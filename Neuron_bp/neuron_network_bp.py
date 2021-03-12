@@ -19,7 +19,7 @@ class Neuron_network:
         """
         self.outputs = [input]
         for i in self.layers:
-            self.outputs.append(i.predict_layer(self.outputs[-1]))
+            self.outputs.append(i.predict_layer (list((self.outputs[-1]))))
         self.outputs = self.outputs[-1]
         return self.outputs
 
@@ -34,11 +34,15 @@ class Neuron_network:
             loss_sum += (target[index] - self.outputs[index])**2
         self.loss.append(loss_sum/len(target))
 
-    def calculate_total_loss(self) -> float:
+    def MSE(self, inputs:[List[float]], targets:[List[float]]) -> float:
         """
         Een functie die de MSE voor de hele netewerk berekent.
         :return: de totale loss van de hele netwerk
         """
+        for i in range(len(inputs)):
+            self.feed_forward(inputs[i])
+            self.calculate_loss(targets[i])
+
         total_loss = sum(self.loss) / len(self.loss)
         self.loss = []
         return total_loss
@@ -55,7 +59,6 @@ class Neuron_network:
         :return: None
         """
         start_time, epoch = time.time(), 0
-
         while epoches > epoch and time.time()-start_time < max_time:
             ## ADD RANDOM SHIFFEL INPUT!!!!!
             # for epoch in range(epoches):
@@ -73,10 +76,10 @@ class Neuron_network:
 
                 for i in range(len(self.layers[::-1])):
                     self.layers[i-1].update(learning_rate)
-                self.calculate_loss(target)
             epoch += 1
-        print("loss", self.calculate_total_loss())
+        print("total loss", self.MSE(inputs, targets))
         print("epoches", epoch)
+
 
     def __str__(self) -> str:
 
