@@ -32,19 +32,3 @@ class Neuron_network:
         Een fucntie die de eigenschappen van de netwerk netjes uitprint
         """
         return f'Deze netwerk bestaat uit deze lagen {self.layers} en heeft een output van {self.outputs}'
-#
-orNeuron = Neuron(weights=[100, 100], bias=-50)
-nandNeuron = Neuron(weights=[-80, -80], bias=100)
-andNeuron = Neuron(weights=[80, 80], bias=-100)
-firstLayer = Neuron_layer([orNeuron, nandNeuron, andNeuron])
-
-andNeuron = Neuron(weights=[50, 50, -10], bias=-80)
-extraNeuron = Neuron(weights=[-100, -100, 1000], bias=0)
-secondLayer = Neuron_layer([andNeuron, extraNeuron])
-
-halfAdderNetwork = Neuron_network([firstLayer, secondLayer])
-
-inputs = [[0,1], [1,1], [1,0], [0,0]]
-outputs = [[0, 1], [1, 0], [0, 1], [0, 0]]
-for input, output in zip(inputs, outputs):
-    print("input", input, halfAdderNetwork.feed_forward(input))
